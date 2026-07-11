@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle, #4a154b 0%, #1a001a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Sparkle/Glow Effects */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(circle, #fff 1px, transparent 1px),
+                radial-gradient(circle, #fff 1px, transparent 1px);
+            background-size: 40px 40px, 60px 60px;
+            background-position: 0 0, 20px 30px;
+            opacity: 0.15;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Cursive style similar to image */
+        h1.cursive {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,105,180,0.6);
+        }
+
+        p.sub-text {
+            font-size: 1rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        /* Cute Character Placeholder */
+        .character-img {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Pink Glowing Buttons */
+        .btn-pink {
+            background: linear-gradient(45deg, #ff007f, #ff66b2);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-pink:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 5px rgba(255, 0, 127, 0.8);
+        }
+
+        /* Reveal Row Messages (Screen 2) */
+        .reveal-box {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.3); /* Blurred/hidden look initially */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .reveal-box.revealed {
+            background: rgba(255, 105, 180, 0.15);
+            border-color: rgba(255, 105, 180, 0.5);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+        }
+
+        /* Final Letter Card (Screen 3) */
+        .letter-card {
+            background: #fff8f8;
+            color: #5a3d5a;
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 2px solid #ffccd5;
+        }
+
+        .letter-card h2 {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #4a154b;
+        }
+
+        .letter-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .heart-icon {
+            color: #ff007f;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <div class="container">
+        
+        <div id="screen1" class="screen active">
+            <div class="character-img">💕🧸</div>
+            <h1 class="cursive">Hey Vaishnavi, cutiepie</h1>
+            <p class="sub-text">Do you even know how cute you are?</p>
+            <button class="btn-pink" onclick="nextScreen(2)">let's check 👇</button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <div class="heart-icon">💖</div>
+            <h1 class="cursive" style="font-size: 1.8rem; margin-bottom: 25px;">Tap each one to reveal</h1>
+            
+            <div class="reveal-box" onclick="revealMessage(this)">
+                ✨ Tap to open: Message 1
+                <span style="display:none;"><br><br>I messed up... and I'm really sorry for that. 🥺</span>
+            </div>
+            <div class="reveal-box" onclick="revealMessage(this)">
+                ✨ Tap to open: Message 2
+                <span style="display:none;"><br><br>I promise I'll be better for you. 🌸</span>
+            </div>
+            <div class="reveal-box" onclick="revealMessage(this)">
+                ✨ Tap to open: Message 3
+                <span style="display:none;"><br><br>Please forgive me... You mean so much to me. ❤️</span>
+            </div>
+
+            <button id="seeMoreBtn" class="btn-pink" style="margin-top: 15px; opacity: 0.5; pointer-events: none;" onclick="nextScreen(3)">See more ➔</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <div class="letter-card">
+                <div style="font-size: 3rem; margin-bottom: 10px;">🐱🩹</div>
+                <h2>A little note for you</h2>
+                <p>I'm really sorry, my love. I accidentally upset the most precious and adorable person in my life — you. 😔</p>
+                <p>Please forgive me if I hurt you or wasted even a little of your precious time. 🥺❤️</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let revealedCount = 0;
+        const totalBoxes = 3;
+
+        function nextScreen(screenNum) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            // Show target screen
+            document.getElementById('screen' + screenNum).classList.add('active');
+        }
+
+        function revealMessage(element) {
+            if (!element.classList.contains('revealed')) {
+                element.classList.add('revealed');
+                // Find the hidden span inside the box and display it
+                const hiddenSpan = element.querySelector('span');
+                hiddenSpan.style.display = 'inline';
+                
+                revealedCount++;
+                
+                // Unlock the "See More" button once all boxes are tapped
+                if (revealedCount === totalBoxes) {
+                    const btn = document.getElementById('seeMoreBtn');
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
